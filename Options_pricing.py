@@ -8,7 +8,6 @@ Created on Thu Feb 23 10:27:40 2017
 import numpy as np
 import scipy
 from scipy.stats import norm
-import timeit
 import pandas as pd
 
         
@@ -88,6 +87,42 @@ class Futures_Option(object):
 
 ['Sell','Call','201704',31,2]
 
+
+
+Position = pd.DataFrame(columns = ['Buy/Sell','Call/Put','Contract','Current_Premium','Quantity'],index = range(100))
+Position.ix[0] = 'Sell','Call','201704',31,2
+
+print Position.dropna()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
+
 Vol = Futures_Option.Implied_Vol_Call(48.5,9769,9750,0.0125,5)
 
 
@@ -106,5 +141,5 @@ for S in df.index:
 
 print df
 df.plot()
-
+'''
 
