@@ -1,16 +1,23 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Feb 23 10:27:40 2017
+Created on Sat Feb 25 15:53:52 2017
 
 @author: Raymond
 """
 
-import numpy as np
-import scipy
-from scipy.stats import norm
+from Controller import Controller
 import pandas as pd
+import numpy as np
+import sys
+import warnings
+import matplotlib.pyplot as plt
+import datetime
+warnings.simplefilter(action = 'ignore', category = FutureWarning)
+warnings.simplefilter(action = 'ignore', category = DeprecationWarning)
+from scipy.stats import norm
+reload(sys)
+sys.setdefaultencoding('utf8')
 
-        
 
 class Futures_Option(object):
     @staticmethod
@@ -83,5 +90,67 @@ class Futures_Option(object):
         else:
             raise Exception('Error!Please choose a interval where the Error change its signs')
 
-#================================================================================================================================================
+
+
+
+class Maturity():
+    @staticmethod
+    def Monthly_Contract(Contract):
+        Today = datetime.datetime.today()
+        Date = datetime.datetime.strptime(str(Contract), '%Y%m')
+        n = 0
+        
+        for i in range(1,30):
+            if Date.weekday() == 2:
+                n = n + 1        
+                if n == 3:
+                    return Date.strftime('%Y-%m-%d'),np.busday_count(Today,Date)
+    
+                    break
+                else:
+                    pass
+                
+                Date = Date + datetime.timedelta(days = 1)
+        
+            else:
+                Date = Date + datetime.timedelta(days = 1)        
+    
+    @staticmethod
+    def Weekly_Contract(Contract):
+        Today = datetime.datetime.today()
+        Date = datetime.datetime.strptime(str(Contract.split('W')[0]),'%Y%m')
+        Week = int(Contract.split('W')[1])
+        
+        n = 0
+        for i in range(1,30):
+            if Date.weekday() == 2:
+                n = n + 1
+                if n == Week:
+                    return Date.strftime('%Y-%m-%d'),np.busday_count(Today,Date)
+                
+                Date = Date + datetime.timedelta(days = 1)
+            else:
+                
+                Date = Date + datetime.timedelta(days = 1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
